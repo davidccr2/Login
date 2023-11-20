@@ -126,7 +126,7 @@ public class Registro extends javax.swing.JFrame {
 //        String SQL="insert into usuariobd (correo,usuario,contraseña)values(txtcorreo,txtusuario,txtpwd)";
         
         String cadena2,cadena3,cadena4;
-        
+        int resultado;
         cadena2 = txtcorreo.getText();
         cadena3 = txtusuario.getText();
         cadena4 = txtpwd.getText().toString();
@@ -134,22 +134,45 @@ public class Registro extends javax.swing.JFrame {
                     javax.swing.JOptionPane.showMessageDialog(this,"Debe llenar todos los campos \n","AVISO!",javax.swing.JOptionPane.INFORMATION_MESSAGE);
                 }else{
                     
+                    String SQL = "select * from usuariobd where usuario='"+cadena3+"' or correo='"+cadena2+"' ";
+        
+         try{
+
+                Statement st = con.createStatement(); 
+                ResultSet rs = st.executeQuery(SQL);
+                 
+            
+                if (rs.next()){
+                    resultado=1;
+                    if (resultado==1) {
+                    
+                    System.out.println("Error usuario o correo existentes" );
+                    JOptionPane.showMessageDialog(null, "Error usuario o correo existentes");
+             }    
+                }else
+                    
+                    
         try{
 
                 Statement stmt = con.createStatement(); 
                   stmt.executeUpdate("INSERT INTO usuariobd VALUES('"+cadena2+"','"+cadena3+"','"+cadena4+"')");
                   System.out.println("Los valores han sido agregados a la base de datos ");
 
+                  JOptionPane.showMessageDialog(null, "Los valores han sido agregados a la base de datos");
+                 
 
-                 JOptionPane.showInputDialog("Registro Exitoso");
-                 
-               
-                 
                  
         }catch (Exception e){
             JOptionPane.showInputDialog("Error de registro" + e.getMessage());
              System.out.println("Error de registro" + e.getMessage());
         }
+        
+        }catch (Exception e){
+            JOptionPane.showInputDialog("Error de registro" + e.getMessage());
+            
+            
+             System.out.println("Error de registro" + e.getMessage());
+        }  
                         
     }
     }

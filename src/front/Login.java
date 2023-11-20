@@ -148,7 +148,7 @@ public class Login extends javax.swing.JFrame {
                         this.dispose();
                     }
                 }else{
-                     JOptionPane.showInputDialog("Error usuario o contraseña incorrecta");
+                     JOptionPane.showMessageDialog(null, "Error usuario o contraseña incorrecta");
                      intentosFallidos++;
                 System.out.println("Intentos fallidos: " + intentosFallidos);
 
